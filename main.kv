@@ -1,0 +1,365 @@
+#: import rgba kivy.utils.rgba
+#: import icon kivy.garden.iconfonts.icon
+#: import mtx kivy.metrics
+
+<MainWindow>:
+        orientation: "vertical"
+        canvas.before:
+                Color:
+                        rgba:rgba("#ff0000ff")
+                Rectangle:
+                        pos: self.pos
+                        size: self.size
+        ScreenManager:
+                id:scrn_mngr
+                Screen:
+                        name: "scrn_signin"
+                        BoxLayout:
+                                orientation: "vertical"
+                                canvas.before:
+                                        Color:
+                                                rgba: rgba("#ffff58ff")
+                                        Triangle:
+                                                points: [0, self.size[1],self.size[0],self.size[1],self.size[0],(0.6*self.size[1])]
+                                        Color:
+                                                rgba: rgba("#ffff00ff")
+                                        Triangle:
+                                                points: [self.size[0],self.size[1],0, self.size[1], 0,(0.6*self.size[1])]
+
+                                                            #Color:
+                                                            #rgba:rgba("ff0000ff")
+                                #assert 1==0, "Got Here"
+                                Widget:
+                                        size_hint_y: 0.25
+                                Label:
+                                        text:"%s"%icon("zmdi-account-circle")
+                                        font_size: mtx.sp("150")
+                                        markup: True
+                                        color: rgba("#ffff00ff")
+                                        size_hint_y: 0.2
+                                BoxLayout:
+                                        size_hint_y: 0.45
+                                        orientation: "vertical"
+                                        padding: [mtx.dp(20),0]
+                                        # canvas.)before:
+                                        #         Rectangle:
+                                        #                 pos:self.pos
+                                        #                 size:[self.size[0],1]
+                                        FlatInput:
+                                                size_hint_y: 0.1
+                                                id: siusername
+                                                hint_text: "Username"
+                                        Widget:
+                                                size_hint_y: 0.05
+                                        FlatInput:
+                                                size_hint_y: 0.1
+                                                id: sipassword
+                                                hint_text: "Password"
+                                                password: True
+                                        # canvas.before:
+                                        #                 Rectangle:
+                                        #                 pos: self.pos
+                                        #                 size: 2
+                                        Widget:
+                                                size_hint_y: 0.2
+                                        Button:
+                                                text: "Sign in"
+                                                size_hint_y: 0.1
+                                                on_release: root.auth_user(siusername,sipassword)
+
+                                        Widget:
+                                                size_hint_y: 0.1
+                                        FlatButton:
+                                                text: "New here? Sign up."
+                                                #color: rgba("#ffff58ff")
+                                                size_hint_y: 0.1
+                                                on_release: scrn_mngr.current = "scrn_signup"
+
+
+                Screen:
+                        name: "scrn_signup"
+                        BoxLayout:
+                                orientation: "vertical"
+                                canvas.before:
+                                        Color:
+                                                rgba: rgba("#0900ffff")
+                                        Triangle:
+                                                points: [0, self.size[1],self.size[0],self.size[1],self.size[0],(0.6*self.size[1])]
+                                        Color:
+                                                rgba: rgba("#0900ffff")
+                                        Triangle:
+                                                points: [self.size[0],self.size[1],0, self.size[1], 0,(0.6*self.size[1])]
+
+                                                #Color:
+                                                #rgba:rgba("ff0000ff")
+                                Widget:
+                                        size_hint_y: 0.25
+                                Label:
+                                        text:"%s"%icon("zmdi-account-circle")
+                                        font_size: mtx.sp("150")
+                                        markup: True
+                                        color: rgba("#0900ffff")
+                                        size_hint_y: 0.2
+                                BoxLayout:
+
+                                        size_hint_y: 0.45
+                                        orientation: "vertical"
+                                        padding: [mtx.dp(20),0]
+                                        # canvas.before:
+                                        #         Rectangle:
+                                        #                 pos:self.pos
+                                        #                 size:[self.size[0],1]
+                                        FlatInput:
+                                                size_hint_y: 0.1
+                                                id: "suusername"
+                                                hint_text: "Username"
+                                        Widget:
+                                                size_hint_y: 0.05
+                                        FlatInput:
+                                                size_hint_y: 0.1
+                                                id: "supassword"
+                                                hint_text: "Password"
+                                                hint_text_color: rgba("#0900ffff")
+                                                password: True
+                                        # canvas.before:
+                                        #                 Rectangle:
+                                        #                 pos: self.pos
+                                        #                 size: 2
+                                        Widget:
+                                                size_hint_y: 0.2
+                                        Button:
+                                                text: "Sign Up"
+                                                size_hint_y: 0.1
+                                                # canvas.before:
+                                                        # Color:
+                                                        #         rgba: rgba("#0e1574ff")
+                                                        # RoundedRectangle:
+                                                        #         pos:self.pos
+                                                        #         size: self.size
+                                                        #         radius: [300]
+                                        Widget:
+                                                size_hint_y: 0.1
+                                        FlatButton:
+                                                text: "Already registered? Sign in."
+                                                #color: rgba("#ffff58ff")
+                                                size_hint_y: 0.1
+                                                on_release: scrn_mngr.current="scrn_signin"
+
+                Screen:
+                        name: "scrn_main"
+                        BoxLayout:
+                                orientation: "vertical"
+                                canvas.before:
+                                        Color:
+                                                rgba: rgba("#0900ffff")
+                                        Rectangle:
+                                                pos: self.pos
+                                                size: self.size
+                                BoxLayout:
+                                        orientation: "vertical"
+                                        #padding: 30
+                                        size_hint_y: 0.1
+                                        FlatButton:
+                                                text: icon("zmdi-apps")
+                                                font_size:mtx.sp("24")
+                                                markup: True
+                                                text_size:self.size
+                                                valign: "middle"
+
+                                BoxLayout:
+                                        ScrollView:
+                                                id: scroll_parent
+                                                do_scroll: [True, False]
+                                                scroll_type: ["content"]
+                                                height: self.parent.height
+                                                effect_cls: "ScrollEffect"
+
+                                                GridLayout:
+                                                        id: today_wrapper
+                                                        rows:1
+                                                        #size_hint: (None,None)
+                                                        size: self.minimum_size
+                                                        Today:
+                                                                name: "Task 01 adslkjasdklfjasdfasdljkhasdlkfjasdflkjassdlkjasdfljasdflkj"
+                                                                time: "10:24"
+                                                                size_hint: (None,None)
+                                                                size: [scroll_parent.height, 0.9*scroll_parent.height]
+
+                                                        NewButton:
+                                                                on_release: root.add_webcam()
+                                                                        #root.add_new()
+                                                                #size_hint: (mtx.dp(100),mtx.dp(100))
+                                                                size_hint: (None,None)
+                                                                size: [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
+                                                                #[scroll_today.height, 0.9*scroll_today.height]
+
+
+
+
+
+
+
+                                BoxLayout:
+                                        orientation: "vertical"
+                                        canvas.before:
+                                                Color:
+                                                        rgba: rgba("#0900ffff")
+                                                RoundedRectangle:
+                                                        pos: self.pos
+                                                        size: self.size
+
+
+
+                                                #padding: mtx.sp(24)
+
+
+
+
+
+
+
+
+
+<NewTask>
+        size_hint: [0.8,0.5]
+        BoxLayout:
+                orientation: "vertical"
+                padding: "10dp"
+                canvas.before:
+                        Color:
+                                rgba: rgba("#ffff58ff")
+                        Rectangle:
+                                pos: self.pos
+                                size: self.size
+
+                BoxLayout:
+                        FlatInput:
+                                id: task_name
+                                size_hint_y: 0.3
+                                hint_text: "task"
+                                hint_text_color: rgba("#ffffffff")
+
+                Widget:
+                        size_hint_y: 0.2
+
+                BoxLayout:
+                        size_hint_y: 0.3
+                        FlatButton:
+                                id: task_time
+                                text: "00:00"
+                                on_release: root.get_time()
+
+
+                        # size_hint_y: 0.3
+                        # DatePicker:
+                        #         id: task_date
+                                # hint_text: "time"
+                                # hint_text_color: rgba("#ffffffff")
+
+                Widget:
+                        size_hint_y: 0.1
+
+                FlatButton:
+                        text:"Submit"
+                        #on_release: app.root.add_webcam()
+                        #app.root.add_task(root, (task_name, task_time))
+
+                        size_hint_y: 0.3
+                        canvas.before:
+                                Color:
+                                        rgba:rgba("#ffffffff")
+
+                                Rectangle:
+                                        pos: self.pos
+                                        size: self.size
+
+<Today>
+        orientation: "vertical"
+        canvas.before:
+                Color:
+                        rgba: rgba("#b3b3b3ff")
+                Rectangle:
+                        pos: self.pos
+                        size: self.size
+        Label:
+                id: task_name
+                text: root.name
+                size_hint: (None,None)
+                halign: "right"
+
+                size_hint_y: 0.8
+                text_size: self.size
+                shorten: True
+                shorten_from: "right"
+
+        BoxLayout:
+                Label:
+                        text: icon("zmdi-time-countdown")
+                        markup: True
+                        halign: "right"
+                        size_hint_x: 0.9
+                Label:
+                        id: task_time
+                        text: root.time
+                        #size_hint: (None,None)
+                        halign: "right"
+                        size_hint_y: 0.8
+                        size_hint_x:0.9
+
+        AnchorLayout:
+                FlatButton:
+                        orientation: "vertical"
+                        anchor_x: "right"
+                        anchor_y: "bottom"
+                        text: icon("zmdi-delete")
+                        #size_hint: (None,None)
+                        color: rgba("#0000ffff")
+                        halign: "right"
+
+                        markup: True
+                        on_release: root.parent.remove_widget(root)
+<NewButton>
+        canvas.before:
+                Color:
+                        rgba: rgba("#ff0000ff")
+                Rectangle:
+                        pos: self.pos
+                        size: self.size
+        Label:
+                text: icon("zmdi-plus")
+                markup: True
+                font_size:mtx.dp(150)
+
+
+
+<FlatInput@TextInput>
+        background_color: rgba("#ff0000ff")
+        background_normal: ""
+        canvas.before:
+                Color:
+                        rgba: rgba("#ffff58ff")
+                # RoundedRectangle:
+                #         pos: self.pos
+                #         size: [self.size[0], 1]
+                #         radius: [300]
+                Rectangle:
+                        pos:self.pos
+                        size: [self.size[0],1]
+<FlatButton@Button>
+        background_color: rgba("#ff0000ff")
+        background_normal: ""
+        background_active: ""
+# For webcam input:
+
+                # Screen:
+                #         name: "Today"
+                #         BoxLayout:
+                #                 orientation: "vertical"
+                #                 Button:
+                #                         text:"Go to Sign Up"
+                #                         on_release: scrn_mngr.current= "Sign Up"
+                #
+                #
+                #
+                #
+                #
